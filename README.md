@@ -1,4 +1,4 @@
-# wdwe - Walt Disney World Explorer timeline re-creation
+# wdwe (Walt Disney World Explorer timeline re-creation)
 
 Author: Adam Beagle
 
