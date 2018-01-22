@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>WDW Explorer</title>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  
+  <script src="js/timeline.min.js"></script>
+</head>
+
+<body>
+  <div class="wdwe-container">
+    <div class="canvas-container">
+      <canvas id="wdwe"></canvas>
+      <p class="loading blink">Loading...</p>
+
+      <div class="wdwe-element repeat-audio layer1 point transparent"></div>
+      <div class="wdwe-element slider layer1 point transparent"></div>
+      <div class="wdwe-element year layer2"></div>
+      <div class="wdwe-element monorail layer2 point"></div>
+    </div>
+    <div class="controls">
+      <a href="#" class="mute" role="button">Mute</a>
+      <a href="" class="source">View Source at GitHub</a>
+    </div>
+    <p class="instructions">
+      CONTROLS:<br>
+      Click the timeline or drag the monorail train to change the year.<br>
+      The left and right arrow keys can also be used to change the year one at a time.
+    </p>
+  </div>
+  <script>  
+    /* Blink loading message until game ready */
+    
+    var loadMsg = document.querySelector('.blink'),
+        showing = true,
+        intervalId;
+    
+    // Toggle loadMsg visibility
+    function toggleMsg() {
+      showing = !showing;
+      
+      if (showing) {
+        loadMsg.style.visibility = "visible";
+      }
+      else {
+        loadMsg.style.visibility = "hidden";
+      }
+    }
+    
+    intervalId = setInterval(function() {
+      toggleMsg();
+      
+      if (wdweTimeline.isReady()) {
+        document.querySelector('.monorail').style.visibility = 'visible';
+        clearInterval(intervalId);
+      }
+      else if (wdweTimeline.isTimedOut()) {
+        clearInterval(intervalId);
+        
+        loadMsg.innerHTML = "Oh no!<br>Something went wrong.";
+        loadMsg.style.visibility = 'visible';
+      }
+    }, 600);
+    
+    // Init timeline
+    wdweTimeline.init('wdwe', 10000);
+  </script>
+</body>
+</html>
