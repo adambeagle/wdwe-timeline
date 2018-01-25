@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .wdwe-container {
   width: 640px;
 }
@@ -19,6 +24,11 @@
 
 .controls .source {
   float: right;
+}
+
+.instructions {
+  text-align: center;
+  margin-top: 5px;
 }
 
 .canvas-container:hover,
