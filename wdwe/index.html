@@ -21,12 +21,12 @@
       <div class="wdwe-element monorail layer2 point"></div>
     </div>
     <div class="controls">
-      <a href="#" class="mute" role="button">Mute</a>
-      <a href="" class="source">View Source at GitHub</a>
+      <button class="mute" role="button">Unmute</button>
+      <a href="https://github.com/adambeagle/wdwe-timeline" class="source" target="_blank">View Source at GitHub</a>
     </div>
     <p class="instructions">
-      CONTROLS:<br>
-      Click the timeline or drag the monorail train to change the year.<br>
+      CONTROLS<br>
+      Click the timeline (with the end of Tinkerbell's wand) or drag the monorail train to change the year.<br>
       The left and right arrow keys can also be used to change the year one at a time.
     </p>
   </div>
@@ -65,7 +65,7 @@
     }, 600);
     
     // Init timeline
-    wdweTimeline.init('wdwe', 10000);
+    wdweTimeline.init('wdwe', 10000, true);
   </script>
 </body>
 </html>

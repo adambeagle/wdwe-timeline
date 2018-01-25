@@ -64,7 +64,8 @@ var wdweTimeline = function() {
       timeout,    // in ms
       canvasOffset,
       currentYear,
-      slider;
+      slider,
+      startMuted;
       
   /* =================== */
   /* INIT & START        */
@@ -118,7 +119,7 @@ var wdweTimeline = function() {
   }
   
   function start() {
-    audio.start();
+    audio.start(startMuted);
     dispatchSetyear(currentYear);
   }
   
@@ -209,20 +210,27 @@ var wdweTimeline = function() {
       return audio.isReady();
     }
     
-    this.start = function() {
-      audio.loop('bgmusic');
-    
+    this.start = function(muted) {
+      var muteEl = document.querySelector('.wdwe-container .mute');
+        
       document.querySelector('.repeat-audio').addEventListener(
         'click', repeatAudio, true
       );
 
-      document.querySelector('.wdwe-container .mute').addEventListener(
+      muteEl.addEventListener(
         'click', toggleMute, true
       );
 
       ctx.canvas.addEventListener('click', function() {
         audio.stop();
       }, true);
+      
+      if(muted) {
+        toggleMute({'target': muteEl});
+      }
+      else {
+        audio.loop('bgmusic');
+      }
     }
     
     function setYear(evt) {
@@ -490,6 +498,7 @@ var wdweTimeline = function() {
       var ready = false;
 
       this.audio = new Audio(src);
+      this.audio.volume = 0.5;
 
       this.isReady = function() {
         return ready;
@@ -701,11 +710,12 @@ var wdweTimeline = function() {
   /* RETURN
   /* =================== */
   return {
-    'init': function(canvasId, _timeout) {
+    'init': function(canvasId, _timeout, _startMuted) {
       ctx = document.getElementById(canvasId).getContext('2d');
       ctx.canvas.width = CW;
       ctx.canvas.height = CH;
       timeout = parseInt(_timeout);
+      startMuted = _startMuted;
       
       if (isNaN(timeout)) {
         timeout = DEFAULT_TIMEOUT;
